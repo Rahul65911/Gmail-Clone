@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import useGetAllEmails from '../hooks/useGetAllEmails';
 
 const appSlice = createSlice({
     name: "app",

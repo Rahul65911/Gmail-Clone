@@ -6,10 +6,9 @@ import { TbGridDots } from "react-icons/tb";
 import Avatar from "react-avatar";
 import Logo from "../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { setAuthUser, setOpen, setSearchText } from "../redux/appSlice";
+import { setAuthUser, setSearchText } from "../redux/appSlice";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.app);
@@ -19,7 +18,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/v1/user/logout");
+      const res = await axios.get("https://gmail-clone-backend-jade.vercel.app/api/v1/user/logout");
       toast.success(res.data.message);
       dispatch(setAuthUser(null));
     } catch (error) {

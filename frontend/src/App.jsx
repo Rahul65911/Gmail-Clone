@@ -1,5 +1,5 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Inbox from "./components/Inbox";
 import Navbar from "./components/Navbar";
 import Body from "./components/Body";
@@ -8,8 +8,6 @@ import SendEmail from "./components/SendEmail";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import { Toaster } from "react-hot-toast";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
 
 const appRoter = createBrowserRouter([
   {

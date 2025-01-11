@@ -10,8 +10,6 @@ import { IoMdRefresh, IoMdMore } from "react-icons/io";
 import { GoTag } from "react-icons/go";
 import Emails from "./Emails";
 import useGetAllEmails from "../hooks/useGetAllEmails";
-import { useDispatch, useSelector } from "react-redux";
-import { setEmails, setEmailType } from "../redux/appSlice";
 import useGetSentEmails from "../hooks/useGetSentEmails";
 
 const mailType = [
@@ -31,8 +29,7 @@ const mailType = [
 
 const Inbox = () => {
   const [selected, setSelected] = useState(0);
-  const { emailType } = useSelector(store => store.app);
-  const dispatch = useDispatch();
+  console.log("hd");
   useGetSentEmails();
   useGetAllEmails();
   

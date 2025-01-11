@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { setOpen, setEmails, setSentEmails } from "../redux/appSlice";
+import { setOpen, setSentEmails } from "../redux/appSlice";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -23,7 +23,7 @@ const SendEmail = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.post("http://localhost:8080/api/v1/email/create", formData, {
+      const res = await axios.post("https://gmail-clone-backend-jade.vercel.app/api/v1/email/create", formData, {
         headers: {
           "Content-Type": "application/json",
         },

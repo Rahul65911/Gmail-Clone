@@ -31,7 +31,7 @@ const Mail = () => {
   
   const deleteHandler = async (e) => {
     try {
-      const res = await axios.delete(`http://localhost:8080/api/v1/email/${id}`,{
+      const res = await axios.delete(`https://gmail-clone-backend-jade.vercel.app/api/v1/email/${id}`,{
         withCredentials:true
       });
       toast.success(res.data.message);

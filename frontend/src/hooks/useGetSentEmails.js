@@ -10,7 +10,8 @@ const useGetSentEmails = () => {
     useEffect(() => {
         const fetchEmails = async () => {
             try {
-                const res = await axios.get(`http://localhost:8080/api/v1/email/getsentemails?emailId=${user?user.email:""}`, {
+                console.log(user.email);
+                const res = await axios.get(`https://gmail-clone-backend-jade.vercel.app/api/v1/email/getsentemails?emailId=${user?user.email:""}`, {
                     withCredentials: true,
                 });
                 if(!res.data) {
