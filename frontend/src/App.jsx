@@ -10,7 +10,6 @@ import Login from "./components/Login";
 import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { resetState } from "./redux/appSlice";
 
 // const appRouter = createBrowserRouter([
 //   {
