@@ -5,6 +5,8 @@ import { setOpen, setSentEmails } from "../redux/appSlice";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+const SERVER = import.meta.env.VITE_SERVER;
+
 const SendEmail = () => {
   const { open, user, sentEmails } = useSelector(store => store.app);
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ const SendEmail = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try{
-      const res = await axios.post("https://gmail-clone-backend-jade.vercel.app/api/v1/email/create", formData, {
+      const res = await axios.post(`${SERVER}/api/v1/email/create`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -33,17 +35,17 @@ const SendEmail = () => {
       toast.success("Email Sent");
     } catch(err) {
       console.error(err);
-      toast.error(err.response.data.message)
+      toast.error(err.response?.data?.message)
     }
 
     dispatch(setOpen(false));
   }
 
   return (
-    <div className={` ${open? 'block': 'hidden'} ng-white max-w-6xl shadow-xl shadow-slate-600 rounded-t-md`}>
+    <div className={` ${open? 'block': 'hidden'} bg-white max-w-6xl shadow-xl shadow-slate-600 rounded-t-md`}>
       <div className="flex items-center justify-between px-3 py-2 bg-[#F2F6FC]">
         <h1>New Message</h1>
-        <div onClick={() => dispatch(setOpen(false))} className="p-2 rounded-full hover:bg-gray-200 hover:cursor-pointer">
+        <div onClick={() => dispatch(setOpen(false))} className="p-2 rounded-full hover:bg-gray-300 cursor-pointer">
           <RxCross2 size={"20px"} />
         </div>
       </div>

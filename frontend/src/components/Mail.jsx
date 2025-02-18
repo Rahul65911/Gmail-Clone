@@ -7,7 +7,6 @@ import {
   MdKeyboardArrowRight,
   MdOutlineAddTask,
   MdOutlineDriveFileMove,
-  MdOutlineMarkEmailRead,
   MdOutlineMarkEmailUnread,
   MdOutlineReport,
   MdOutlineWatchLater,
@@ -18,27 +17,32 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import formatTimeAgo from "../hooks/useFormatedDate";
 
+const SERVER = import.meta.env.VITE_SERVER;
+
 const Mail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const { emails, sentEmails, emailType } = useSelector((store) => store.app);
   let email;
-  if(emailType == 0) 
+  if(emailType == 0) {
     email = emails.find(e => e._id == id);
-  else  
+    if(!email) navigate('/');
+  } else { 
     email = sentEmails.find(e => e._id == id);
-  
+    if(!email) navigate('/');
+  }
+
   const deleteHandler = async (e) => {
     try {
-      const res = await axios.delete(`https://gmail-clone-backend-jade.vercel.app/api/v1/email/${id}`,{
+      const res = await axios.delete(`${SERVER}/api/v1/email/${id}`,{
         withCredentials:true
       });
       toast.success(res.data.message);
       navigate("/")
     } catch (error) {
       console.error(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message);
     }
   };
   
@@ -61,14 +65,14 @@ const Mail = () => {
             onClick={() => {
               navigate("/");
             }}
-            className="p-2 rounded-full hover:bg-gray-200 hover:cursor-pointer"
+            className="p-2 rounded-full hover:bg-gray-200 cursor-pointer"
           >
             <IoMdArrowBack size={"20px"} />
           </div>
           {iconList.map((item) => {
             return (
               <div
-                className="p-2 rounded-full hover:bg-gray-200 hover:cursor-pointer"
+                className="p-2 rounded-full hover:bg-gray-200 cursor-pointer"
                 key={item.key}
                 onClick={item.action}
               >
@@ -86,19 +90,19 @@ const Mail = () => {
       <div className="h-[90vh] overflow-y-auto p-4">
         <div className="flex items-center justify-between gap-1 bg-white">
           <div className="flex items-center gap-2">
-            <h1 className="text-xl font-medium">{email.subject}</h1>
+            <h1 className="text-xl font-medium">{email?.subject}</h1>
             <span className="text-sm bg-gray-200 rounded-md px-2">inbox</span>
           </div>
           <div className="flex-none text-gray-400 text-sm my-5">
-            <p>{formatTimeAgo(email.createdAt)}</p>
+            <p>{email && formatTimeAgo(email?.createdAt)}</p>
           </div>
         </div>
         <div className="text-gray-500 text-sm">
-          <h1>{emailType==0?email.from: "from me"}</h1>
-          <span>{emailType==0?"to me": email.to}</span>
+          <h1>{emailType==0?email?.from: "from me"}</h1>
+          <span>{emailType==0?"to me": email?.to}</span>
         </div>
         <div className="my-10">
-          <p>{email.message}</p>
+          <p>{email?.message}</p>
         </div>
       </div>
     </div>

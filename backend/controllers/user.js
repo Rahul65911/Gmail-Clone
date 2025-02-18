@@ -29,7 +29,7 @@ const register = async (req, res) => {
 
     return res.status(201).json({
       message: "Account Created Successfully",
-      success: true
+      success: true,
     });
   } catch (err) {
     console.error(err);
@@ -50,32 +50,32 @@ const login = async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ message: "Incorrect email or password", success: fakse });
+        .json({ message: "Incorrect email or password", success: false });
     }
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
       return res
         .status(401)
-        .json({ message: "Incorrect email or password", success: fakse });
+        .json({ message: "Incorrect email or password", success: false });
     }
 
     const token = await jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
-    
+
     return res
       .status(200)
       .cookie("token", token, {
-        maxAge: 1 * 24 * 60 * 60 * 1000,
+        maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
         sameSite: "none",
-        secure: true
+        secure: true,
       })
       .json({
         message: `${user.fullname} logged in successfully.`,
         user,
-        success: true
+        success: true,
       });
   } catch (err) {
     console.error(err);
@@ -102,5 +102,5 @@ const logout = async (req, res) => {
 module.exports = {
   register,
   login,
-  logout
+  logout,
 };

@@ -11,7 +11,7 @@ import { TbSend2 } from "react-icons/tb";
 import { useDispatch } from "react-redux";
 import { setEmailType, setOpen } from "../redux/appSlice";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen }) => {
   const [clicked, setClicked] = useState(null);
   const dispatch = useDispatch();
 
@@ -59,33 +59,39 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-[15%]">
-      <div className="p-3">
-        <button
-          onClick={() => dispatch(setOpen(true))}
-          className="flex items-center gap-3 bg-[#C2E7FF] p-4 rounded-2xl hover:shadow-md"
+    <>
+      {isOpen && (
+        <div
+          className={`bg-white h-[90vh] mt-2 shadow-md transition-all duration-300 max-md:z-10 rounded-e-lg`}
         >
-          <LuPencil size={"24px"} />
-          Compose
-        </button>
-      </div>
-      <div className="text-gray-600">
-        {sidebarItems.map((item, index) => {
-          return (
-            <div
-              key={index}
-              onClick={item.action}
-              className={`flex items-center pl-6 py-1 my-2 rounded-r-full gap-4 hover:cursor-pointer hover:bg-gray-200 ${
-                clicked == index ? "bg-blue-200" : ""
-              } `}
+          <div className="p-3">
+            <button
+              onClick={() => dispatch(setOpen(true))}
+              className="flex items-center gap-3 bg-[#C2E7FF] p-4 rounded-2xl hover:shadow-md"
             >
-              {item.icon}
-              <p>{item.text}</p>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+              <LuPencil size={"24px"} />
+              Compose
+            </button>
+          </div>
+          <div className="text-gray-600">
+            {sidebarItems.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  onClick={item.action}
+                  className={`flex items-center pl-6 py-1 my-2 rounded-r-full gap-4 cursor-pointer hover:bg-gray-200 ${
+                    clicked == index ? "bg-blue-200" : ""
+                  } `}
+                >
+                  {item.icon}
+                  <p>{item.text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

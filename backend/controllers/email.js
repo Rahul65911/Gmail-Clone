@@ -69,7 +69,8 @@ const deleteEmail = async (req, res) => {
 
 const getAllEmail = async (req, res) => {
   try {
-    const emails = await Email.find({ to: req.query.emailId });
+    const mailId = req.query.emailId;
+    const emails = await Email.find({ to: mailId });
 
     return res.status(200).json({
       success: true,

@@ -10,6 +10,7 @@ connectDB();
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+const ORIGIN = process.env.ORIGIN;
 
 //middlewares
 app.use(express.urlencoded({extended: false}))
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-    origin: 'https://gmail-clone-frontend-six.vercel.app',
+    origin: `${ORIGIN}`,
     credentials: true
 };
 app.use(cors(corsOptions));

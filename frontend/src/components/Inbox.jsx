@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   MdCropSquare,
   MdInbox,
@@ -29,12 +29,11 @@ const mailType = [
 
 const Inbox = () => {
   const [selected, setSelected] = useState(0);
-  console.log("hd");
   useGetSentEmails();
   useGetAllEmails();
   
   return (
-    <div className="h-[90vh] flex-1 bg-white rounded-xl mx-5">
+    <div className="h-[90vh] bg-white rounded-xl mx-5 w-auto">
       <div className="flex items-center justify-between px-4 my-2">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1">
@@ -55,7 +54,7 @@ const Inbox = () => {
         </div>
       </div>
       <div className="h-90vh overflow-y-auto">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 max-sm:flex-col max-sm:items-start border-b-2">
           {mailType.map((item, index) => {
             return (
               <button
@@ -65,7 +64,7 @@ const Inbox = () => {
                   selected === index
                     ? "border-b-4 border-b-blue-600 text-blue-600"
                     : "border-b-4 border-b-transparent"
-                } flex items-center gap-5 p-4 w-52 hover:bg-gray-100`}
+                } flex items-center gap-5 p-4 w-48 hover:bg-gray-100`}
               >
                 {item.icon}
                 <span>{item.text}</span>
