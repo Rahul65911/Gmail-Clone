@@ -8,7 +8,6 @@ import SendEmail from "./components/SendEmail";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import { Toaster } from "react-hot-toast";
-import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
 // const appRouter = createBrowserRouter([
